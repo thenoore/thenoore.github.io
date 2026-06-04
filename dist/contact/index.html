@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap" rel="stylesheet"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/thenoore/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CAqDO0tx.js"></script><meta name="generator" content="Astro v6.3.2"><title>Contact | Bare Glow</title><link rel="stylesheet" href="/thenoore/_astro/Layout.COVP4Y8w.css">
+<style>@media(orientation:landscape){.hero[data-astro-cid-bbe6dxrz]{display:flex;justify-content:center;margin:5rem 0;align-items:center}.vertical-spacer[data-astro-cid-bbe6dxrz]{width:1.5rem;height:100%}.image[data-astro-cid-bbe6dxrz]{height:60vh;object-fit:cover;width:50vh;background-color:#fff}.text[data-astro-cid-bbe6dxrz]{width:50vh}.title[data-astro-cid-bbe6dxrz]{font-family:Aboreto,system-ui;font-weight:700;font-style:italic;margin:0;padding:0}.subtitle[data-astro-cid-bbe6dxrz]{font-weight:400;margin:0;padding:.25rem}}@media(orientation:portrait){.hero[data-astro-cid-bbe6dxrz]{display:flex;flex-direction:column;justify-content:center;margin:4rem 0;align-items:center}.vertical-spacer[data-astro-cid-bbe6dxrz]{width:100%;height:2rem}.image[data-astro-cid-bbe6dxrz]{height:20vh;object-fit:cover;width:min(90vw,50vh);opacity:.75}.text[data-astro-cid-bbe6dxrz]{width:min(90vw,50vh);margin-top:1rem}.title[data-astro-cid-bbe6dxrz]{font-family:Aboreto,system-ui;font-weight:700;font-style:italic;margin:0;padding:0;text-align:center}.subtitle[data-astro-cid-bbe6dxrz]{font-weight:400;margin:0;padding:.25rem;text-align:center;margin-bottom:1rem}}h1[data-astro-cid-uw5kdbxl],p[data-astro-cid-uw5kdbxl]{margin:0;padding:0}.container[data-astro-cid-uw5kdbxl]{color:#2f2f2f}
+h1[data-astro-cid-wu3265fh],p[data-astro-cid-wu3265fh]{margin:0;padding:0}.headText[data-astro-cid-wu3265fh]{text-align:center;margin-bottom:5rem}.subtitle[data-astro-cid-wu3265fh]{color:#6b6b6b;text-transform:uppercase}@media(orientation:landscape){.aboreto[data-astro-cid-wu3265fh]{font-family:Aboreto,system-ui;font-weight:700;font-style:normal;text-align:center;font-size:3rem;margin-top:1rem}}@media(orientation:portrait){.aboreto[data-astro-cid-wu3265fh]{font-family:Aboreto,system-ui;font-weight:700;font-style:normal;text-align:center;font-size:2rem;margin-top:1rem}}
+</style></head> <body> <header data-astro-cid-ymhdp2rl> <nav data-astro-cid-ymhdp2rl> <a id="brandName" href="/" data-astro-cid-ymhdp2rl>Bare Glow</a> <button class="menuBtn" id="menuBtn" aria-label="Toggle menu" data-astro-cid-ymhdp2rl> <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-ymhdp2rl> <path d="M4 5h16" data-astro-cid-ymhdp2rl></path> <path d="M4 12h16" data-astro-cid-ymhdp2rl></path> <path d="M4 19h16" data-astro-cid-ymhdp2rl></path> </svg> <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-ymhdp2rl> <path d="M18 6 6 18" data-astro-cid-ymhdp2rl></path> <path d="m6 6 12 12" data-astro-cid-ymhdp2rl></path> </svg> </button> <div class="wrapper" id="menu" data-astro-cid-ymhdp2rl> <div class="links" data-astro-cid-ymhdp2rl> <a href="/shop" data-astro-cid-ymhdp2rl>Shop</a> <a href="/about" data-astro-cid-ymhdp2rl>About</a> <a href="/contact" data-astro-cid-ymhdp2rl>Contact</a> </div> </div> </nav> </header> <div class="menu-overlay" id="menuOverlay" data-astro-cid-ymhdp2rl></div> <script>
+
+function initMobileMenu() {
+    const menu = document.getElementById("menu");
+    const btn = document.getElementById("menuBtn");
+    const overlay = document.getElementById("menuOverlay");
+
+    if (!menu || !btn || !overlay) return;
+
+    function closeMenu() {
+        menu.classList.remove("show");
+        overlay.classList.remove("show");
+        btn.classList.remove("is-open");
+        btn.setAttribute("aria-expanded", "false");
+    }
+
+    btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const isOpen = menu.classList.contains("show");
+
+        if (isOpen) {
+            closeMenu();
+        } else {
+            menu.classList.add("show");
+            overlay.classList.add("show");
+            btn.classList.add("is-open");
+            btn.setAttribute("aria-expanded", "true");
+        }
+    });
+
+    overlay.addEventListener("click", closeMenu);
+
+    menu.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+}
+
+document.addEventListener("astro:page-load", initMobileMenu);
+document.addEventListener("astro:after-swap", initMobileMenu);
+
+</script> <main>  <div class="container" data-astro-cid-uw5kdbxl> <div class="headText" data-astro-cid-wu3265fh> <p class="subtitle" data-astro-cid-wu3265fh>TALK</p> <h1 class="aboreto" data-astro-cid-wu3265fh>Contact Us</h1> </div> <div class="hero" data-astro-cid-bbe6dxrz> <img src="/thenoore/_astro/soap.CkYQl7bw_6f7la.webp" alt="Logo" data-astro-cid-bbe6dxrz="true" loading="lazy" decoding="async" width="2048" height="2560" class="image"> <div class="vertical-spacer" data-astro-cid-bbe6dxrz></div> <div class="text" data-astro-cid-bbe6dxrz> <h1 class="title" data-astro-cid-bbe6dxrz>Get in Touch</h1> <h4 class="subtitle" data-astro-cid-bbe6dxrz>We absolutely love talking to our customers.</h4> <br data-astro-cid-bbe6dxrz>  <p data-astro-cid-uw5kdbxl>
+Have a question, feedback, or just want to say hello?  
+                We'd love to hear from you.
+</p> <p data-astro-cid-uw5kdbxl>
+Monday to Thursday: 08:00 - 17:00
+<br data-astro-cid-uw5kdbxl>
+Friday: 08:00 - 16:00
+<br data-astro-cid-uw5kdbxl>
+Weekends & Bank Holidays: Closed
+</p> <div class="details" data-astro-cid-uw5kdbxl> <p data-astro-cid-uw5kdbxl> <strong data-astro-cid-uw5kdbxl>Email:</strong> <a href="mailto:care@bareglow.com" data-astro-cid-uw5kdbxl>care@bareglow.com</a> </p> <p data-astro-cid-uw5kdbxl> <strong data-astro-cid-uw5kdbxl>Phone:</strong> <a href="tel:02039620370" data-astro-cid-uw5kdbxl>020 3962 0370</a> </p> </div> <p class="note" data-astro-cid-uw5kdbxl>
+We aim to respond to all enquiries as quickly as possible.
+</p>  </div> </div> </div>  </main> <footer data-astro-cid-sz7xmlte> <div class="banner" data-astro-cid-sz7xmlte> <div class="leftColumn" data-astro-cid-sz7xmlte> <a href="/faqs" data-astro-cid-sz7xmlte>FAQs</a> <a href="/terms-and-conditions" data-astro-cid-sz7xmlte>Terms & Conditions</a> <a href="/return-and-exchange" data-astro-cid-sz7xmlte>Return & Exchange Policy</a> </div> <p class="brandName" data-astro-cid-sz7xmlte>Bare Glow</p> <div class="rightColumn" data-astro-cid-sz7xmlte> <a href="/" data-astro-cid-sz7xmlte>Instagram</a> <a href="/" data-astro-cid-sz7xmlte>TikTok</a> <a href="/" data-astro-cid-sz7xmlte>X</a> </div> </div> <p id="copyright" data-astro-cid-sz7xmlte>Bare Glow © 2026 | All Rights Reserved</p> </footer> </body></html>
