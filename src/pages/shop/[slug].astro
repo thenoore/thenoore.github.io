@@ -202,7 +202,7 @@ document.addEventListener("astro:before-preparation", stop);
                 {
                     soaps.map((discoverSoap) => {
                         if (discoverSoap.name != soap.name) {
-                            return <DiscoverSoapCard url={discoverSoap.image} alt={discoverSoap.imageAlt} productName={discoverSoap.name} price={discoverSoap.price} ctaLink={`/shop/${soap.slug}`} />
+                            return <DiscoverSoapCard url={discoverSoap.image} alt={discoverSoap.imageAlt} productName={discoverSoap.name} price={discoverSoap.price} ctaLink={`/shop/${discoverSoap.slug}`} />
                         }
                     })
                 }
