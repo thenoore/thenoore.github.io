@@ -1,0 +1,59 @@
+---
+import PageHeadText from "../components/PageHeadText.astro";
+import Layout from "../layouts/Layout.astro";
+
+import {rne} from "../data/rne";
+---
+
+<Layout title="Returns & Exchange">
+    <div class="container">
+        <PageHeadText title="Returns & Exchange" subtitle="Check" />
+        <div class="content">
+            <h2 class="heading">Returns <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-icon lucide-package"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg></h2>
+            <div class="policy-section">
+                {rne.returns.map((item) => (
+                    <p class="policy-item">{item}</p>
+                ))}
+            </div>
+
+            <h2 class="heading">Exchanges <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-refresh-ccw-icon lucide-refresh-ccw"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></h2>
+            <div class="policy-section">
+                {rne.exchanges.map((item) => (
+                    <p class="policy-item">{item}</p>
+                ))}
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    h2 {
+        margin: 1rem auto;
+        padding: 0px;
+        font-family: "Aboreto", system-ui;
+        font-weight: bold;
+    }
+
+    .content {
+        width: 90vw;
+        margin: 5rem auto;
+    }
+
+    .heading {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: start;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .policy-section {
+        margin: auto;
+        margin-bottom: 3rem;
+    }
+
+    .policy-item {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+</style>

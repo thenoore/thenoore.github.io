@@ -1,0 +1,68 @@
+---
+import PageHeadText from '../components/PageHeadText.astro';
+import WideImageHero from '../components/WideImageHero.astro';
+import Layout from '../layouts/Layout.astro';
+
+import image from '../assets/soap.png';
+import image1 from '../assets/fragrance.jpg';
+import image2 from '../assets/kojic.jpeg';
+import image3 from '../assets/aloevera.jpg';
+---
+
+<Layout title='About'>
+	<div class="container">
+        <PageHeadText title='Bare Glow' subtitle='ABOUT' />
+
+        <WideImageHero url={image} alt='Aloe Vera' leftToRight={false}>
+            <p>
+                Bare Glow started very simply — with a love for slow self-care, traditional ingredients, and the little rituals we grow up around without even realising how special they are. Growing up in an Indian household, skincare was never complicated. 
+            </p>
+            <p>
+                It was homemade haldi masks before weddings, honey and lemon mixed in kitchen bowls, coconut oil rituals, and ingredients passed down through mums, aunties, and grandmothers long before “clean beauty” became a trend.
+            </p>
+        </WideImageHero>
+        <WideImageHero url={image1} alt='Aloe Vera' leftToRight={true}>
+            <p>
+                Bare Glow was inspired by those memories. 
+            </p>
+            <p>
+                Every bar is handcrafted in small batches using ingredients chosen not just for how they look, but for how they make you feel — warm, comforted, fresh, glowy, and cared for.
+            </p>
+        </WideImageHero>
+        <WideImageHero url={image2} alt='Aloe Vera' leftToRight={false}>
+            <p>
+                We're not trying to promise perfection or miracle results. Our soaps are simply designed to turn everyday routines into little moments of calm and softness. 
+            </p>
+            <p>
+                From creamy goat milk bases to citrus blends, turmeric, honey, oats, florals, and gentle exfoliants — each product is made with intention, inspired by traditional remedies and modern self-care rituals.
+            </p>
+        </WideImageHero>
+        <WideImageHero url={image3} alt='Aloe Vera' leftToRight={true}>
+            <p>
+                At Bare Glow, we believe skincare should feel personal, comforting, and beautiful — never overwhelming. 
+            </p>
+            <p>
+                Thank you for supporting a small handmade business and being part of this journey 💚
+            </p>
+        </WideImageHero>
+
+    </div>
+</Layout>
+
+<style>
+    
+    h1, p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    @media (orientation: landscape) {
+        
+    }
+
+    @media (orientation: portrait) {
+        .container {
+            margin-bottom: 5rem;
+        }
+    }
+</style>

@@ -1,0 +1,50 @@
+---
+import FAQPreview from '../components/FAQPreview.astro';
+import InfinityScroll from '../components/InfinityScroll.astro';
+import PageHeadText from '../components/PageHeadText.astro';
+import SliderCTA from '../components/SliderCTA.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Layout from '../layouts/Layout.astro';
+
+import firstImage from "../assets/bgImage.jpeg";
+import secondImage from "../assets/process.jpeg";
+import thirdImage from "../assets/aesthat.jpeg";
+---
+
+<Layout title='Home'>
+    <div class="container">
+
+        <PageHeadText title='Bare Soaps to Glow' subtitle='DISCOVER' />
+
+        <SliderCTA ctaLabel='Explore Soaps' ctaLink='/shop' image={firstImage} alt='Image'>
+            Handmade Natural Soaps for Sensitive Skin.
+            <br>
+            Crafted with plant oils, essential oils, and zero harsh chemicals.
+        </SliderCTA>
+
+        <InfinityScroll />
+
+        <Testimonials />
+
+        <SliderCTA ctaLabel='Discover Our Story' ctaLink='/about' image={secondImage} alt='Image'>
+            What started as a personal search for pure and mindful skincare slowly became a passion for creating handmade soaps inspired by nature.
+        </SliderCTA>
+
+        <FAQPreview />
+
+        <div class="spacer">
+            <SliderCTA ctaLabel='Shop Now' ctaLink='/shop' image={thirdImage} alt='Image'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bubbles-icon lucide-bubbles"><path d="M7.001 15.085A1.5 1.5 0 0 1 9 16.5"/><circle cx="18.5" cy="8.5" r="3.5"/><circle cx="7.5" cy="16.5" r="5.5"/><circle cx="7.5" cy="4.5" r="2.5"/></svg>
+                <br>
+                Ready to switch to skin-friendly soap?
+            </SliderCTA>
+        </div>
+
+    </div>
+</Layout>
+
+<style>
+    .spacer {
+        margin: 10rem auto;
+    }
+</style>

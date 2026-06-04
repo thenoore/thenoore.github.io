@@ -1,0 +1,145 @@
+---
+import { Image } from "astro:assets";
+import backgroundImage from "../assets/3colors.jpg";
+
+import { testimonials } from "../data/testimonials";
+
+const review = "My skin stopped drying out after a week.";
+const writer = "Sarah K.";
+
+---
+
+<div class="testimonials">
+    {testimonials.map((test) => (
+        <div class="test-card">
+            <div class="backgroundImage">
+                <Image src={backgroundImage} alt="Background Image for a card" />
+            </div>
+            <div class="content">
+                <p class="review">
+                    <svg class="quote invert" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote-icon lucide-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>
+                    <span class="actualReview">
+                        <mark>{test.review}</mark>
+                    </span>
+                    <svg class="quote" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-quote-icon lucide-quote"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></svg>
+                </p>
+                <p class="writer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-signature-icon lucide-signature"><path d="m21 17-2.156-1.868A.5.5 0 0 0 18 15.5v.5a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1c0-2.545-3.991-3.97-8.5-4a1 1 0 0 0 0 5c4.153 0 4.745-11.295 5.708-13.5a2.5 2.5 0 1 1 3.31 3.284"/><path d="M3 21h18"/></svg>
+                    {test.author}
+                </p>
+            </div>
+        </div>
+    ))}
+    
+</div>
+
+<style>
+    .testimonials {
+        width: 80vw;
+        margin: 10rem auto;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(23rem, 1fr));
+        gap: 3rem;
+        row-gap: 5rem;
+    }
+
+    .test-card {
+        width: 100%;
+        max-width: 500px;
+        aspect-ratio: 2/1;
+        position: relative;
+        margin: auto;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    }
+
+    .backgroundImage {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            
+        }
+    }
+
+    .content {
+        padding: 1rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        height: 100%;
+
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+
+        color: white;
+    }
+
+    .review {
+        /* background-color: pink; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+    }
+
+    .actualReview {
+        text-align: center;
+        /* text-shadow: 1px 1px 1px black; */
+        word-spacing: .1rem;
+    }
+
+    mark {
+        background-color:#00000090;
+        padding: 0 0.15rem;
+        color: white;
+    }
+
+    .quote {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .invert {
+        transform: rotate(180deg);
+    }
+
+    .writer {
+        /* background-color: skyblue; */
+        text-align: center;
+        font-weight: normal;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        height: 1.5rem;
+    }
+
+    @media (orientation: portrait) {
+        .testimonials {
+            width: min(90vw, 500px);
+            margin: 5rem auto;
+            display: grid;
+            grid-template-columns: auto;
+        }
+
+        .test-card {
+            width: 100%;
+            aspect-ratio: 2/1;
+            position: relative;
+            margin: auto;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        }
+    }
+</style>

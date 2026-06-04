@@ -1,0 +1,123 @@
+---
+import Badge from "./Badge.astro";
+---
+
+<div class="badges">
+    <Badge badgeText="Organic">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-leaf-icon lucide-leaf"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+    </Badge>
+    <Badge badgeText="Cruelty Free">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rabbit-icon lucide-rabbit"><path d="M13 16a3 3 0 0 1 2.24 5"/><path d="M18 12h.01"/><path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"/><path d="M20 8.54V4a2 2 0 1 0-4 0v3"/><path d="M7.612 12.524a3 3 0 1 0-1.6 4.3"/></svg>
+    </Badge>
+    <Badge badgeText="Sulfate Free">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flask-conical-off-icon lucide-flask-conical-off"><path d="M10 2v2.343"/><path d="M14 2v6.343"/><path d="m2 2 20 20"/><path d="M20 20a2 2 0 0 1-2 2H6a2 2 0 0 1-1.755-2.96l5.227-9.563"/><path d="M6.453 15H15"/><path d="M8.5 2h7"/></svg>
+    </Badge>
+    <Badge badgeText="Handmade">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-hand-heart-icon lucide-hand-heart"><path d="M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16"/><path d="m14.45 13.39 5.05-4.694C20.196 8 21 6.85 21 5.75a2.75 2.75 0 0 0-4.797-1.837.276.276 0 0 1-.406 0A2.75 2.75 0 0 0 11 5.75c0 1.2.802 2.248 1.5 2.946L16 11.95"/><path d="m2 15 6 6"/><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a1 1 0 0 0-2.75-2.91"/></svg>
+    </Badge>
+</div>
+
+<style>
+    p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    :root {
+        /* --dark: #7A9E8B;
+        --med: #579e78;
+        --light: #abc5b8; */
+        --dark: #2a0134;
+        --med: var(--primary);
+        --light: #e0b0ff;
+    }
+
+    @media (orientation: landscape) {
+        .badges {
+            width: 30%;
+            display: flex;
+            gap: 1.5rem;
+            flex-direction: column;
+            align-items: start;
+            padding-left: 5rem;
+            box-sizing: border-box;
+        }
+
+        .badge {
+            width: 100%;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            position: relative;
+        }
+
+        .badge:hover > svg {
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            background-color: var(--med);
+            color: white;
+            font-weight: bold;
+        }
+
+        svg {
+            padding: 1rem;
+            border: 1px solid var(--dark);
+            border-radius: 50%;
+            color: var(--dark);
+            margin-right: 1.3rem;
+            transition: all .2s ease-out;
+            box-shadow: 5px 5px 0 var(--light);
+        }
+
+        .badgeText {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .badges {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-top: 1px solid var(--light);
+            border-bottom: 1px solid var(--light);
+        }
+
+        .badge {
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .badge:nth-child(odd) {
+            flex-direction: column;
+        }
+        
+        .badge:nth-child(even) {
+            flex-direction: column-reverse;
+        }
+
+        svg {
+            padding: 1rem;
+            border: 1px solid var(--dark);
+            border-radius: 50%;
+            color: var(--dark);
+            box-shadow: 3px 3px 0 var(--light);
+        }
+
+        .badgeText {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-size: .8rem;
+        }
+    }
+    
+</style>

@@ -1,0 +1,71 @@
+---
+interface Props {
+    ctaLabel: string;
+    ctaLink: string;
+}
+
+const { ctaLabel, ctaLink } = Astro.props;
+---
+
+<div class="button">
+    <a href={ctaLink} class="ctaLabel">{ctaLabel}</a>
+</div>
+
+<style>
+    .button {
+        width: 100%;
+    }
+
+    :root {
+        --dark: #b23aee;
+        --med: var(--primary);
+        --light: #e0b0ff;
+    }
+
+    @media (orientation: landscape) {
+
+        .ctaLabel {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+
+            padding: 1rem 0 1rem 0;
+            color: white;
+            /* background-color: #B57BEE; */
+            background-color: var(--primary);
+            line-height: 1rem;
+            transition: all .2s ease-out;
+            font-family: "Aboreto", system-ui;
+            font-style: normal;
+            box-shadow: 0.5em 0.5em 0 0 var(--light);
+        }
+
+        a:hover {
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            background-color: #b23aee;
+            color: white;
+            font-weight: bold;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .button {
+            width: 100%;
+        }
+
+        .ctaLabel {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            color: white;
+            background-color: var(--primary);
+            line-height: 1rem;
+            font-family: "Aboreto", system-ui;
+            font-style: normal;
+            box-shadow: 0.5em 0.5em 0 0 var(--light);
+        }
+    }
+</style>

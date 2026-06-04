@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    url: any;
+    title: string;
+    subtitle: string;
+}
+
+const { url, title, subtitle } = Astro.props;
+---
+
+<div class="hero">
+    <Image src={url} alt="Logo" class="image" />
+    <div class="vertical-spacer"></div>
+    <div class="text">
+        <h1 class="title">{title}</h1>
+        <h4 class="subtitle">{subtitle}</h4>
+        <br>
+        <slot />
+    </div>
+</div>
+
+<style>
+    @media (orientation: landscape) {
+        .hero {
+            display: flex;
+            justify-content:center;
+            margin: 5rem 0;
+            align-items: center;
+        }
+
+        .vertical-spacer {
+            width: 1.5rem;
+            height: 100%;
+        }
+
+        .image {
+            height: 60vh;
+            object-fit: cover;
+            width: 50vh;
+            background-color: white;
+        }
+
+        .text {
+            width: 50vh;
+        }
+
+        .title {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .subtitle {
+            font-weight: normal;
+            margin: 0px;
+            padding: .25rem;
+        }
+    }
+
+    @media (orientation: portrait) {
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content:center;
+            margin: 4rem 0;
+            align-items: center;
+        }
+
+        .vertical-spacer {
+            width: 100%;
+            height: 2rem;
+        }
+
+        .image {
+            height: 20vh;
+            object-fit: cover;
+            width: min(90vw, 50vh);
+            opacity: .75;
+        }
+
+        .text {
+            width: min(90vw, 50vh);
+            margin-top: 1rem;
+        }
+
+        .title {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-weight: normal;
+            margin: 0px;
+            padding: .25rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+    }
+
+</style>

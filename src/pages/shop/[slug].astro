@@ -1,0 +1,476 @@
+---
+import { soaps } from "../../data/soaps";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import Button from "../../components/Button.astro";
+import Badges from "../../components/Badges.astro";
+import Ingredient from "../../components/Ingredient.astro";
+import Step from "../../components/Step.astro";
+import DiscoverSoapCard from "../../components/DiscoverSoapCard.astro";
+
+
+export async function getStaticPaths() {
+    return soaps.map((soap) => ({
+        params: {
+            slug: soap.slug,
+        },
+        props: {
+            soap,
+        },
+    }));
+}
+
+const { soap } = Astro.props;
+---
+
+<script>
+
+let rellaxInstances: any[] = [];
+
+function destroyAll() {
+    rellaxInstances.forEach(i => i?.destroy?.());
+    rellaxInstances = [];
+}
+
+function setup() {
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+
+    import('rellax').then(({ default: Rellax }) => {
+        destroyAll();
+
+        if (!isLandscape) return;
+
+        rellaxInstances = [
+            new Rellax('.rellax', {
+                speed: 3,
+                center: false,
+                round: true,
+                vertical: true,
+                horizontal: false
+            }),
+
+            new Rellax('.rellax-fast', {
+                speed: 7,
+                center: false,
+                round: true,
+                vertical: true,
+                horizontal: false
+            }),
+
+            new Rellax('.rellax-faster', {
+                speed: -2,
+                center: false,
+                round: true,
+                vertical: true,
+                horizontal: false
+            })
+        ];
+    });
+}
+
+window.addEventListener('load', setup);
+window.addEventListener('resize', setup);
+
+// initial load
+document.addEventListener('astro:page-load', setup);
+
+// important for view transitions
+document.addEventListener('astro:after-swap', setup);
+
+// smoother behavior during morph transitions
+document.addEventListener('astro:before-preparation', destroyAll);
+
+
+
+
+
+
+
+
+
+
+
+
+
+let el: HTMLElement | null = null;
+
+let raf: number | null = null;
+
+let x = 0;
+let y = 0;
+let tx = 0;
+let ty = 0;
+
+function onMove(e: MouseEvent) {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    tx = (e.clientX / w - 0.5) * 15;
+    ty = (e.clientY / h - 0.5) * 15;
+}
+
+function tick() {
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+    if (!isLandscape || !finePointer) return;
+
+    if (!el) return;
+
+    x += ((tx - x) * 0.08) * 1.2;
+    y += ((ty - y) * 0.08) * 1.2;
+    el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+    raf = requestAnimationFrame(tick);
+}
+
+function start() {
+    stop(); // always reset first
+
+    el = document.querySelector("[data-mouse-parallax]");
+
+    if (!el) return;
+
+    document.addEventListener("mousemove", onMove);
+
+    raf = requestAnimationFrame(tick);
+}
+
+function stop() {
+    document.removeEventListener("mousemove", onMove);
+
+    if (raf) cancelAnimationFrame(raf);
+    raf = null;
+
+    el = null;
+}
+
+document.addEventListener("astro:page-load", start);
+document.addEventListener("astro:before-preparation", stop);
+    
+</script>
+
+<Layout title={soap.name}>
+    <div class="container">
+        <p class="productSubtitle">Organic Soap</p>
+        <p transition:name={`${soap.name}-name`} class="productName">{soap.name}</p>
+        <div class="imageHolder" data-mouse-parallax>
+            <Image transition:name={soap.name} src={soap.image} alt="Image" class="productImage rellax" />
+        </div>
+        <div class="productHighlightBuy rellax-fast">
+            <Badges />
+            <div class="buyInfo rellax-faster">
+                <p transition:name={`${soap.name}-price`} class="productPrice">Price for {soap.weight} &nbsp;&nbsp;<span class="priceValue">￡{soap.price}</span></p>
+                <div class="buttonHolder">
+                    <Button ctaLabel="Buy Now" ctaLink="/" />
+                </div>
+            </div>
+        </div>
+
+        <div class="ingredientsDiv">
+            <div class="ingredientsHead">
+                Ingredients
+            </div>
+            <div class="ingredientsBody">
+                {
+                    (soap.ingredients).map((ingredient) => (
+                        <Ingredient ingredient={ingredient} />
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="productDescription">
+            <p class="subHeading">Product Details</p>
+
+            Hyaluronic Acid 2% + B5 (with Ceramides) serum is an updated version of our original formulation. This second-generation formulation combines ingredients for enhanced hydration, barrier support, and smoother skin. The addition of ceramides provides barrier support while retaining multi-depth hydration benefits.
+        </div>
+
+        <div class="howToUse">
+            <p class="subHeading">How To Use</p>
+
+            <div class="steps">
+                <Step number={1} step="Wet Your Skin" instruction="Start by wetting your hands or body with warm water. This helps activate the soap and prepare your skin for a gentle cleanse." />
+                <Step number={2} step="Lather the Soap" instruction="Rub the bar between your hands or onto a soft washcloth to create a rich, creamy lather." />
+                <Step number={3} step="Massage Gently" instruction="Apply the lather to your skin in soft circular motions. Let the natural ingredients nourish and cleanse your skin." />
+                <Step number={4} step="Rinse Thoroughly" instruction="Wash off with clean water and gently pat your skin dry with a towel. Enjoy the soft, refreshed feel." />
+            </div>
+        </div>
+
+        <div class="otherSoaps">
+            <p class="subHeading">You may also like</p>
+            <div class="carousel">
+                {
+                    soaps.map((discoverSoap) => {
+                        if (discoverSoap.name != soap.name) {
+                            return <DiscoverSoapCard url={discoverSoap.image} alt={discoverSoap.imageAlt} productName={discoverSoap.name} price={discoverSoap.price} ctaLink={discoverSoap.slug} />
+                        }
+                    })
+                }
+            </div>
+        </div>
+
+    </div>
+</Layout>
+
+<style>
+
+    p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    :root {
+        --dark: #b23aee;
+    }
+
+    .productSubtitle {
+        font-weight: normal;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        margin: 3rem 0 0 5.5rem;
+    }
+
+    .productName {
+        font-weight: bolder;
+        text-transform: uppercase;
+        font-size: 7rem;
+        margin: 0 0 0 5rem;
+    }
+
+    .imageHolder {
+        width: 100%;
+        text-align: center;
+        margin-top: -5rem;
+        will-change: transform;
+        
+    }
+
+    .productImage {
+        width: 50vh;
+        object-fit: contain;
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
+    }
+
+    .productHighlightBuy {
+        position: absolute;
+        width: calc(100% - 2rem);
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        will-change: transform;
+    }
+
+    .buyInfo {
+        width: 30%;
+        padding-right: 5rem;
+    }
+
+    .productPrice {
+        font-size: 1.2rem;
+        color: grey;
+        margin-bottom: 2rem;
+    }
+
+    .priceValue {
+        font-size: 2rem;
+        color: black;
+    }
+
+    .buttonHolder {
+        width: 80%;
+    }
+
+
+    .productDescription {
+        width: 90%;
+        margin: 5rem auto;
+        padding: 5rem 0px;
+    }
+
+
+    .howToUse {
+        width: 90%;
+        margin: 10rem auto;
+        height: auto;
+    }
+
+    .subHeading {
+        margin-bottom: 5rem;
+        font-size: 2rem;
+        text-align: center;
+        font-weight: lighter;
+        font-family: "Aboreto", system-ui;
+    }
+
+    .otherSoaps {
+        margin: 5rem auto;
+    }
+
+    .carousel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5rem;
+    }
+
+    @media (orientation: landscape) {
+        .ingredientsDiv {
+            width: 90%;
+            margin: 20rem auto 5rem auto;
+            border-top: 1px solid var(--dark);
+            border-bottom: 1px solid var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .ingredientsHead {
+            width: 20%;
+            padding: 3rem 0;
+            text-transform: uppercase;
+            font-weight: lighter;
+            font-size: min(2rem, 2vw);
+            font-weight: lighter;
+            font-family: "Aboreto", system-ui;
+        }
+
+        .ingredientsBody {
+            width: 80%;
+            padding: 3rem 0 3rem 3rem;
+            border-left: 1px solid var(--dark);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+            gap: 2rem;
+        }
+
+        .steps {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5rem;
+            align-items: start;
+            justify-content: center;
+        }
+    }
+
+    @media (orientation: portrait) {
+
+        .productSubtitle {
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin: 0px;
+        }
+
+        .productName {
+            font-weight: bolder;
+            text-transform: uppercase;
+            font-size: 2.5rem;
+            margin: 0px;
+            margin-bottom: 1rem;
+        }
+
+        .imageHolder {
+            width: 80vw;
+            text-align: center;
+            margin: auto;
+        }
+
+        .productImage {
+            width: 80vw;
+            height: 80vw;
+            object-fit: cover;
+        }
+
+        .productHighlightBuy {
+            position: relative;
+            width: 90vw;
+            margin: 2rem auto 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5rem;
+            transform: none !important;
+        }
+
+        .buyInfo {
+            width: 90vw;
+            margin: 3rem auto 2rem auto;
+            text-align: center;
+        }
+
+        .productPrice {
+            font-size: 1.2rem;
+            color: grey;
+            margin-bottom: 2rem;
+        }
+
+        .priceValue {
+            font-size: 2rem;
+            color: black;
+        }
+
+        .buttonHolder {
+            width: 95%;
+            margin: auto;
+        }
+
+        .ingredientsDiv {
+            /* width: 90%; */
+            margin: 10rem auto 5rem auto;
+            /* border-top: 1px solid #392D69;
+            border-bottom: 1px solid #392D69; */
+            display: grid;
+            align-items: center;
+        }
+
+        .ingredientsHead {
+            width: 90%;
+            margin: auto;
+            text-align: center;
+            border: 1px solid black;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: lighter;
+            font-family: "Aboreto", system-ui;
+        }
+
+        .ingredientsBody {
+            width: 100%;
+            padding: 3rem 0 3rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+            gap: 2rem;
+        }
+
+        .subHeading {
+            max-width: 90vw;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid black;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            white-space: nowrap;
+        }
+
+        .carousel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5rem;
+        }
+
+        .steps {
+            width: 90%;
+            margin: auto;
+            display: grid;
+            gap: 5rem;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+</style>

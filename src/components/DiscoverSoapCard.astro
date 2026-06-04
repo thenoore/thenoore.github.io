@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    url: any;
+    productName: string;
+    price: string;
+    ctaLink: string;
+    alt: string;
+}
+
+const { url, productName, price, ctaLink, alt } = Astro.props;
+---
+
+<a href={ctaLink}>
+    <div class="discoverSoapCard">
+        <Image  transition:name={productName} src={url} alt={alt} class="image" />
+
+        <p transition:name={`${productName}-name`} class="soapName">{productName}</p>
+        <p transition:name={`${productName}-price`} class="priceValue">￡{price}</p>
+    </div>
+</a>
+
+<style>
+    .discoverSoapCard {
+        
+        text-align: center;
+        width: 40vh;
+        transition: all .2s linear;
+        overflow: hidden;
+    }
+
+    .image {
+        width: 40vh;
+        height: 40vh;
+        object-fit: cover;
+        background-color: var(--light);
+    }
+
+    .soapName {
+        font-weight: 400;
+        font-style: normal;
+        text-transform: uppercase;
+        padding: .5rem;
+    }
+
+    .priceValue {
+        font-weight: 400;
+        font-style: italic;
+        padding-bottom: .5rem;
+    }
+
+    @media (orientation: landscape) {
+        .discoverSoapCard:hover {
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        }
+    }
+</style>

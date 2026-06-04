@@ -1,0 +1,50 @@
+---
+interface Props {
+    number: number;
+    step: string;
+    instruction: string;
+}
+
+const { number, step, instruction } = Astro.props;
+---
+
+<div class="stepCard">
+    <p class="header">
+        step 
+        <span class="number">{number}</span> 
+    </p>
+    
+    <p class="step">{step}</p>
+
+    <p class="instruction">{instruction}</p>
+</div>
+
+<style>
+    .stepCard {
+        text-align: center;
+        width: 100%;
+    }
+
+    .header {
+        display: flex;
+        align-items: start;
+        font-variant-caps: small-caps;
+        justify-content: center;
+    }
+
+    .number {
+        font-family: "Aboreto", system-ui;
+        font-weight: lighter;
+        font-size: 5rem;
+        font-style: italic;
+    }
+
+    .step {
+        margin: .5rem 0;
+        text-transform: uppercase;
+    }
+
+    .instruction {
+        margin: 2rem 0;
+    }
+</style>

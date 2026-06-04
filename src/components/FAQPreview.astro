@@ -1,0 +1,66 @@
+---
+import FAQ from "../components/FAQ.astro";
+
+import { faqs } from "../data/faqs";
+import Button from "./Button.astro";
+---
+
+<div class="FAQPreview">
+    <div class="heading">
+        <h3>Everything you may want to know before choosing your soap</h3>
+    </div>
+    <div class="faqs">
+        {faqs.slice(0, 3).map((faq) => (
+            <FAQ question={faq.question} answer={faq.answer} />
+        ))}
+    </div>
+    <div class="buttonHolder">
+        <Button ctaLabel="View all FAQs →" ctaLink="/faqs" />
+    </div>
+</div>
+
+<style>
+
+    .FAQPreview {
+        width: 90vw;
+        margin: 5rem auto;
+    }
+
+    h3 {
+        margin: 0;
+        padding: 0px;
+    }
+
+    @media (orientation: landscape) {
+        .heading {
+            font-family: "Aboreto", system-ui;
+            font-size: 1.5rem;
+            word-spacing: .5rem;
+            margin: 10rem auto 5rem auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .buttonHolder {
+            width: min(500px, 40vw);
+            margin: 5rem auto;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .heading {
+            font-family: "Aboreto", system-ui;
+            font-size: 1.5rem;
+            word-spacing: .5rem;
+            margin: 10rem auto 5rem auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .buttonHolder {
+            width: 80%;
+            margin: 5rem auto;
+            text-align: center;
+        }
+    }
+</style>

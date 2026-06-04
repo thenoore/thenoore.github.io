@@ -1,0 +1,30 @@
+---
+import PageHeadText from "../components/PageHeadText.astro";
+import Layout from "../layouts/Layout.astro";
+
+import {tnc} from "../data/tnc";
+---
+
+<Layout title="Terms & Conditions">
+    <div class="container">
+        <PageHeadText title="Terms & Conditions" subtitle="Read" />
+        <div class="content">
+            {tnc.map((item) => (
+                <p class="term-item">{item}</p>
+            ))}
+        </div>
+    </div>
+</Layout>
+
+<style>
+
+    .content {
+        width: 90vw;
+        margin: 5rem auto;
+    }
+    
+    .term-item {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+    }
+</style>

@@ -1,0 +1,118 @@
+---
+import Card from '../../components/Card.astro';
+import Layout from '../../layouts/Layout.astro';
+
+import { soaps } from "../../data/soaps";
+import PageHeadText from '../../components/PageHeadText.astro';
+---
+
+<Layout title='Shop'>
+	<div class="container">
+        <PageHeadText title='Organic Soaps' subtitle='SHOP' />
+
+        <div class="productsListing">
+            {
+                soaps.map((soap) => (
+                    <div class="card is-hidden">
+                        <Card url={soap.coverImage} alt={soap.name} productName={soap.name} price={soap.price} ctaLink={`/shop/${soap.slug}`} />
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</Layout>
+
+
+<script is:inline>
+function initShopStagger() {
+
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+    if (!isLandscape || !finePointer) return;
+    
+    const cards = Array.from(document.querySelectorAll(".card"));
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+
+                const index = cards.indexOf(entry.target);
+
+                // stagger based on index
+                entry.target.style.transitionDelay = `${index * 400}ms`;
+
+                entry.target.classList.remove("is-hidden");
+                entry.target.classList.add("visible");
+
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            rootMargin: "0px 0px -10% 0px"
+        }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+}
+
+document.addEventListener("astro:page-load", initShopStagger);
+document.addEventListener("astro:after-swap", initShopStagger);
+</script>
+
+
+<style>
+
+    h1, p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    @media (orientation: landscape) {
+        .productsListing {
+            width: 80vw;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            row-gap: 5rem;
+            margin: 5rem auto;
+        }
+
+        .card {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            opacity: 0;
+            transition:
+                opacity 2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .card.is-hidden {
+            opacity: 0;
+        }
+
+        .card.visible {
+            opacity: 1;
+        }
+    }
+
+    
+
+    @media (orientation: portrait) {
+        .productsListing {
+            margin: 5rem auto;
+            display: grid;
+            grid-template-columns: auto;
+            row-gap: 4rem;
+        }
+
+        .card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+</style>

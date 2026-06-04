@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHeadText from "../components/PageHeadText.astro";
+import FAQ from "../components/FAQ.astro";
+
+import { faqs } from "../data/faqs";
+---
+
+<Layout title="FAQs">
+    <div class="container">
+        <PageHeadText subtitle="check" title="Frequently asked Questions" />
+        <div class="faqs">
+            {faqs.map((faq) => (
+                <FAQ question={faq.question} answer={faq.answer} />
+            ))}
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .faqs {
+        margin: 5rem auto;
+    }
+</style>

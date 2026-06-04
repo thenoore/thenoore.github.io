@@ -1,0 +1,98 @@
+---
+interface Props {
+    badgeText: string;
+}
+
+const { badgeText } = Astro.props;
+---
+
+<div class="badge">
+    <slot />
+    <p class="badgeText">{badgeText}</p>
+</div>
+
+<style>
+    p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    :root {
+        /* --dark: #7A9E8B;
+        --med: #579e78;
+        --light: #abc5b8; */
+        --dark: #2a0134;
+        --med: var(--primary);
+        --light: #e0b0ff;
+    }
+
+    @media (orientation: landscape) {
+        .badge {
+            width: 100%;
+            /* margin-bottom: 1.5rem; */
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            position: relative;
+        }
+
+        .badge:hover > :global(svg) {
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            background-color: var(--med);
+            color: white;
+            font-weight: bold;
+        }
+
+        .badge :global(svg) {
+            padding: 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            color: var(--primary);
+            margin-right: 1.3rem;
+            transition: all .2s ease-out;
+            box-shadow: 5px 5px 0 var(--light);
+            display: flex;
+            flex: 0 0 1.5rem;
+        }
+
+        .badgeText {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-size: 1.3rem;
+            white-space: nowrap;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .badge {
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .badge:nth-child(odd) {
+            flex-direction: column;
+        }
+        
+        .badge:nth-child(even) {
+            flex-direction: column-reverse;
+        }
+
+        .badge :global(svg) {
+            padding: 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            color: var(--primary);
+            box-shadow: 3px 3px 0 var(--light);
+        }
+
+        .badgeText {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-size: .8rem;
+        }
+    }
+</style>

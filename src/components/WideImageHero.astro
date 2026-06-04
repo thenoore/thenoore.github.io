@@ -1,0 +1,158 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    url: any;
+    alt: string;
+    leftToRight: boolean;
+}
+
+const { url, alt, leftToRight } = Astro.props;
+---
+
+<div class={`wideHero ${leftToRight ? 'ltr' : 'rtl'}`}>
+    <div class="content">
+        <slot />
+    </div>
+
+    <Image src={url} alt={alt} class="image" />
+</div>
+
+
+<script is:inline>
+let observer = null;
+
+function initWideHeroAnimations() {
+    // cleanup old observer
+    observer?.disconnect();
+
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+    if (!isLandscape || !finePointer) return;
+
+    observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+
+                    // optional: animate only once
+                    observer?.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            rootMargin: "0px 0px -10% 0px",
+        }
+    );
+
+    document.querySelectorAll(".wideHero").forEach((el) => {
+        observer?.observe(el);
+    });
+}
+
+document.addEventListener("astro:page-load", initWideHeroAnimations);
+document.addEventListener("astro:after-swap", initWideHeroAnimations);
+
+
+</script>
+
+<style>
+
+    @media (orientation: landscape) {
+
+        .wideHero {
+            width: min(90vw, 1600px);
+            height: min(65vh, 880px);
+            margin: 5rem auto;
+            display: flex;
+            align-items: center;
+            padding: 0px;
+
+            opacity: 0;
+            transform: translateY(50px);
+            transition:
+                opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .wideHero.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .image {
+            height: 100%;
+            object-fit: cover;
+            width: 60%;
+        }
+
+        .content {
+            width: 40%;
+            height: 100%;
+            padding: 3rem;
+            box-sizing: border-box;
+            background-color: #f7f1e6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1lh;
+
+            font-size: 1.2rem;
+            line-height: 1.8rem;
+        }
+
+        .wideHero.ltr .image {
+            order: 1;
+        }
+
+        .wideHero.ltr .content {
+            order: 2;
+        }
+
+        .wideHero.rtl .image {
+            order: 2;
+        }
+
+        .wideHero.rtl .content {
+            order: 1;
+        }
+    }
+
+    @media (orientation: portrait) {
+
+        .wideHero {
+            width: 90vw;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px;
+        }
+
+        .image {
+            order: 1;
+            width: 90vw;
+            height: 60vw;
+            object-fit: cover;
+        }
+
+        .content {
+            order: 2;
+            width: 100%;
+            padding: 2.5rem 2rem 2rem 2rem;
+            box-sizing: border-box;
+            background-color: #f7f1e6;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1lh;
+
+            font-size: 1.2rem;
+            word-spacing: .3rem;
+            line-height: 1.8rem;
+        }
+    }
+</style>

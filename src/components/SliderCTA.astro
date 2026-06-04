@@ -1,0 +1,169 @@
+---
+import { Image } from "astro:assets";
+
+import bg from "../assets/bgImage.jpeg";
+import Button from "./Button.astro";
+
+interface Props {
+    ctaLabel: string;
+    ctaLink: string;
+    image: any;
+    alt: string;
+}
+
+const { ctaLabel, ctaLink, image, alt } = Astro.props;
+---
+
+<div class="sliderCTA">
+    <div class="slider">
+        <Image src={image} alt={alt} class="image" />
+    </div>
+
+    <div class="contentHolder">
+        <p class="text">
+            <slot />
+        </p>
+        <div class="buttonHolder">
+            <Button ctaLabel={ctaLabel} ctaLink={ctaLink} />
+        </div>
+    </div>
+</div>
+
+<style>
+
+    
+
+    @media (orientation: landscape) {
+        .sliderCTA {
+            position: relative;
+            width: min(90vw, 1600px);
+            height: 70vh;
+            margin: 5rem auto;
+            overflow: hidden;
+            /* animation: borderRounding 10s infinite; */
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+
+        /* @keyframes borderRounding {
+            0% {
+                border-radius: 1rem;
+                border-top-left-radius: 5rem;
+            }
+            25% {
+                border-radius: 1rem;
+                border-top-right-radius: 5rem;
+            }
+            50% {
+                border-radius: 1rem;
+                border-bottom-right-radius: 5rem;
+            }
+            75% {
+                border-radius: 1rem;
+                border-bottom-left-radius: 5rem;
+            }
+            100% {
+                border-radius: 1rem;
+                border-top-left-radius: 5rem;
+            }
+        } */
+
+        .slider {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: .8;
+            /* filter: blur(2px); */
+        }
+
+        .contentHolder {
+            position: relative;
+            padding: 2rem;
+            box-sizing: border-box;
+            width: calc(50% - 2rem);
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px); 
+            text-align: center;
+        }
+
+        .text {
+            font-size: 2rem;
+            font-weight: 550;
+            padding: 1rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .buttonHolder {
+            width: 60%;
+        }
+
+    }
+
+    @media (orientation: portrait) {
+        .sliderCTA {
+            position: relative;
+            width: 90vw;
+            margin: 5rem auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            align-items: center;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 2/1;
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .contentHolder {
+            position: relative;
+            padding: 2rem;
+            box-sizing: border-box;
+            width: 100%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .text {
+            font-size: 1.5rem;
+            font-weight: 500;
+            padding: 1rem;
+            color: #2F2F2F;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .buttonHolder {
+            width: 100%;
+        }
+
+    }
+</style>

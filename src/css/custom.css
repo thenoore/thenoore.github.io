@@ -1,0 +1,42 @@
+html, body {
+    /* background-image: linear-gradient(to bottom, #dbb6ff, white); */
+    /* background-image: linear-gradient(to bottom, #fbebff, white); */
+    background-color: #FAF8F4;
+    background-color: #e3cfec;
+    padding: 0px;
+    margin: 0px;
+    min-height: 100vh;
+
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    overflow-x: hidden;
+
+    color: #2F2F2F;
+}
+
+a {
+    all: unset;
+    cursor: pointer;
+}
+
+.container {
+    padding: 3rem 1rem 1rem 1rem;
+    overflow-x: hidden;
+    min-height: 50vh; /* REMOVE THIS, DUE TO NO CONTENT => FOOTER STICKS TO NAVBAR */
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+:root {
+    /* --primary: #eccf8b;
+    --primary: #ffd1dc;
+    --primary: #da70d6; */
+    --primary: #5d3a9c;
+
+    --dark: #b23aee;
+    --med: var(--primary);
+    --light: #e0b0ff;
+}

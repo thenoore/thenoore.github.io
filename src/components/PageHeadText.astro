@@ -1,0 +1,52 @@
+---
+interface Props {
+    title: string;
+    subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<div class="headText">
+    <p class="subtitle">{subtitle}</p>
+    <h1 class="aboreto">{title}</h1>
+</div>
+
+<style>
+    h1, p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .headText {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+
+    .subtitle {
+        color: #6B6B6B;
+        text-transform: uppercase;
+    }
+
+    @media (orientation: landscape) {
+        .aboreto {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-style: normal;
+            text-align: center;
+            font-size: 3rem;
+            margin-top: 1rem;
+        }
+    }
+
+    @media (orientation: portrait) {
+        .aboreto {
+            font-family: "Aboreto", system-ui;
+            font-weight: bold;
+            font-style: normal;
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 1rem;
+        }
+    }
+</style>

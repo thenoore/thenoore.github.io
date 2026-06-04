@@ -1,0 +1,56 @@
+---
+import Hero from '../components/Hero.astro';
+import Layout from '../layouts/Layout.astro';
+import PageHeadText from '../components/PageHeadText.astro';
+
+import soapImage from '../assets/soap.png';
+---
+
+<Layout title='Contact'>
+	<div class="container">
+        <PageHeadText title='Contact Us' subtitle='TALK' />
+
+        <Hero url={soapImage} title='Get in Touch' subtitle='We absolutely love talking to our customers.'>
+            <p>
+                Have a question, feedback, or just want to say hello?  
+                We'd love to hear from you.
+            </p>
+
+            <p>
+                Monday to Thursday: 08:00 - 17:00
+                <br>
+                Friday: 08:00 - 16:00 
+                <br>
+                Weekends & Bank Holidays: Closed
+            </p>
+
+            <div class="details">
+                <p>
+                <strong>Email:</strong>
+                <a href="mailto:care@bareglow.com">care@bareglow.com</a>
+                </p>
+
+                <p>
+                <strong>Phone:</strong>
+                <a href="tel:02039620370">020 3962 0370</a>
+                </p>
+            </div>
+
+            <p class="note">
+                We aim to respond to all enquiries as quickly as possible.
+            </p>
+        </Hero>
+    </div>
+</Layout>
+
+<style>
+
+    h1, p {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .container {
+        color: #2F2F2F;
+    }
+</style>
