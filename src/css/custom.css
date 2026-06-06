@@ -40,3 +40,7 @@ p {
     --med: var(--primary);
     --light: #e0b0ff;
 }
+
+p::selection, h1::selection, h2::selection, h3::selection, h4::selection, h5::selection, a::selection {
+    background: #d196f9;
+}
